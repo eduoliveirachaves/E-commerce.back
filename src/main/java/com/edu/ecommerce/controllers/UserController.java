@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@RequestMapping("/user")
+@RequestMapping("/users")
 @RestController
 public class UserController {
     
@@ -19,6 +19,12 @@ public class UserController {
     
     public UserController (UserService userService) {
         this.service = userService;
+    }
+    
+    @GetMapping("/test")
+    public ResponseEntity<Response> test () {
+        return ResponseEntity.status(HttpStatus.OK)
+                             .body(new Response("ITS WORKING"));
     }
     
     @PostMapping

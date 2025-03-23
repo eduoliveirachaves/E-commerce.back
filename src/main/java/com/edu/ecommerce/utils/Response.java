@@ -1,5 +1,8 @@
 package com.edu.ecommerce.utils;
 
+import lombok.Getter;
+
+@Getter
 public class Response {
     
     private final String message;

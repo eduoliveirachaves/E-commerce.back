@@ -1,3 +1,9 @@
 package com.edu.ecommerce.dto;
 
-public record CreateCustomer (String email, String password, String name, String lastName){}
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record CreateCustomer(
+        @JsonProperty("email") String email,
+        @JsonProperty("password") String password,
+        @JsonProperty("name") String name,
+        @JsonProperty("lastName") String lastName) {}

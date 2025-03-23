@@ -35,14 +35,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal (@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
                                      @NonNull FilterChain filterChain) throws ServletException, IOException {
         
-        // Bypass authentication for public routes
+        // If the route is public bypass authentication
         String requestPath = request.getServletPath();
-        
         String[] publicRoutes = WebSecurityConfig.PUBLIC_ROUTES;
-        
         for (String route : publicRoutes) {
             if (route.equals(requestPath)) {
                 filterChain.doFilter(request, response);
+                SecurityContextHolder.clearContext();
                 return;
             }
         }

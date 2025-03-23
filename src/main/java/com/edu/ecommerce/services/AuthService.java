@@ -22,15 +22,15 @@ public class AuthService {
     
     private final JwtService jwtService;
     
-    
-    public AuthService(@Lazy UserService userService, JwtService jwtService) {
+    public AuthService (@Lazy UserService userService, JwtService jwtService) {
         this.userService = userService;
         this.jwtService = jwtService;
     }
     
-    
-    public Cookie login(UserCredentials userCredentials) {
-        User user = userService.getUserByEmail(userCredentials.email()).orElseThrow(() -> new RuntimeException("User does not exist: " + userCredentials.email()));
+    public Cookie login (UserCredentials userCredentials) {
+        User user = userService.getUserByEmail(userCredentials.email())
+                               .orElseThrow(
+                                       () -> new RuntimeException("User does not exist: " + userCredentials.email()));
         
         if (!jwtService.matches(userCredentials.password(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
@@ -41,7 +41,7 @@ public class AuthService {
         return CustomCookie.create(token);
     }
     
-    public Cookie logout() {
+    public Cookie logout () {
         return CustomCookie.delete();
     }
 }

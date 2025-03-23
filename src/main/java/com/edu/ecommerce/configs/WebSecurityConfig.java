@@ -22,13 +22,8 @@ import java.util.List;
 public class WebSecurityConfig {
     
     public static final String[] PUBLIC_ROUTES = {
-            "/api/auth/login",
-            "/api/user/register",
-            "/v3/api-docs/**",
-            "/api/swagger-ui/**",
-            "/api/swagger-ui.html",
-            "/api/docs/**",
-            "/actuator/**"
+            "/user",
+            "/auth"
     };
     
     private final JwtAuthenticationFilter filter;
@@ -41,7 +36,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain (HttpSecurity http,
                                                     CorsConfigurationSource corsConfigurationSource) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
-                   .cors(cors -> cors.configurationSource(this.corsConfigurationSource()))
+                   .cors(cors -> cors.configurationSource(corsConfigurationSource))
                    .authorizeHttpRequests(auth -> auth.requestMatchers(PUBLIC_ROUTES)
                                                       .permitAll()
                                                       .requestMatchers("/api/admin/**")
